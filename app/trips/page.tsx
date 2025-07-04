@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function TripsPage() {
   const session = await auth();
@@ -16,7 +17,9 @@ export default async function TripsPage() {
     <div className="space-y-6 container mx-auto px-4 py-8">
       <div>
         <h1>Dashboard</h1>
-        <Button>New Trip</Button>
+        <Link href="/trips/new">
+          <Button>New Trip</Button>
+        </Link>
       </div>
     </div>
   );

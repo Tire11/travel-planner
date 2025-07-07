@@ -9,17 +9,17 @@ export async function getCountryFromCoordinates(
 ): Promise<GeocodeResult> {
   const apiKey = process.env.OPENCAGE_API_KEY!;
   const response = await fetch(
-    `https://api.opencagedata.com/geocode/v1/json?latlng=${lat},${lng}&key=${apiKey}`
+    `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`
   );
 
   const data = await response.json();
   const result = data.results[0];
-  const countryComponent = result.address_components.find((component: any) =>
-    component.types.includes("country")
-  );
+
+  const country = result.components?.country || "Unknown Country";
+  const formattedAddress = result.formatted || "Unknown Address";
 
   return {
-    country: countryComponent.long_name || "Unknown Country",
-    formattedAddress: result.formatted_address,
+    country,
+    formattedAddress,
   };
 }
